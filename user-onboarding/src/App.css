@@ -1,0 +1,51 @@
+@import-normalize;
+
+.app-container{
+  background-color: blueviolet;
+  text-align: center;
+}
+
+.app-container h1{
+  color:#fff;
+}
+
+.form-container{
+  background-color: burlywood;
+  padding:4rem;
+  width: 88%;
+  /* margin: 0 10rem; */
+}
+
+.form-groups{
+  background-color: rgb(87, 87, 163);
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-flow: column wrap;
+  width: 70%;
+  margin: 0 10rem;
+  border-radius: 3%;
+}
+
+label{
+  /* background-color: coral; */
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+input{
+  color:black;
+  border-radius: 10%;
+}
+
+/* .password{
+  position: relative;
+  left: 0px;
+} */
+
+.terms{
+  position: relative;
+  right: 100px;
+}
