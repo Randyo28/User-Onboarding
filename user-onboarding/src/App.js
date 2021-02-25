@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import Form from './components/Form';
+import Users from './components/Users';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -46,6 +47,20 @@ function App() {
       })
   }
 
+  //* Axios put requst that will use the formSubmit function to post new User
+  const postNewUser = (newUser) => {
+    axios
+    .post('https://reqres.in/api/users', newUser)
+    .then(res => {
+      setUser([...user, res.data])
+      console.log(res.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    setFormValues(InitialFormValues)
+  }
+
   //* Form submit function to trim out whitespaces, and post new user
   const formSubmit = () => {
     const newUser = {
@@ -58,28 +73,14 @@ function App() {
      postNewUser(newUser)
   }
 
-  //* Axios put requst that will use the formSubmit function to post new User
-  const postNewUser = (newUser) => {
-    axios
-    .put('https://reqres.in/api/users', newUser)
-    .then(res => {
-      setUser([res.data, ...user])
-      
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    setFormValues(InitialFormValues)
-  }
-
   //* 
    useEffect(() => {
      const getUsers = () => {
        axios
        .get('https://reqres.in/api/users')
        .then(res => {
-         console.log(res.data)
-         setUser(res.data)
+         console.log(res.data.data)
+         setUser(res.data.data)
        })
        .catch(err => {
          console.log(err)
@@ -100,6 +101,7 @@ function App() {
       disabled={disabled}
       errors={InitialErrors}
       />
+      <Users users={user}/>
     </div>
   );
 }
