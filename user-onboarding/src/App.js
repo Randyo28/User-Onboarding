@@ -4,12 +4,14 @@ import Form from './components/Form';
 import Users from './components/Users';
 import axios from 'axios';
 import * as yup from 'yup';
+import formSchema from './validation/formSchema';
+
 
 function App() {
 
   //* Forms start Empty
   const InitialFormValues = {
-    name: '',
+    first_name: '',
     email: '',
     password: '',
     terms: false
@@ -17,16 +19,15 @@ function App() {
 
 //* Errors start Empty
   const InitialErrors = {
-    name: '',
+    first_name: '',
     email: '',
     password: '',
   }
-
   //*Users array are empty at first
   const newUser = []
 
   //* Button is initally disabled
-  const initialDisabled = false
+  const initialDisabled = true
 
   //* Form State - object
   const [formValues, setFormValues] = useState(InitialFormValues)
@@ -41,9 +42,20 @@ function App() {
   const [disabled, setDisabled] = useState(initialDisabled)
 
   //* Input function to change the state of Input
-  const inputChange = (name, value) => {
+  const inputChange = (first_name, value) => {
+
+      yup.reach(formSchema, first_name)
+      .validate(value)
+      .then(() => {
+        
+        setErrors({...errors, [first_name]: ''})
+      })
+      .catch(err => {
+        setErrors({...errors, [first_name]: err.errors[0]})
+      })
+
       setFormValues({...formValues, 
-        [name]: value
+        [first_name]: value
       })
   }
 
@@ -64,7 +76,7 @@ function App() {
   //* Form submit function to trim out whitespaces, and post new user
   const formSubmit = () => {
     const newUser = {
-      name: formValues.name.trim(),
+      first_name: formValues.first_name.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
       terms: formValues.terms,
@@ -88,18 +100,23 @@ function App() {
      }
      getUsers()
     }, [])
+
+    //*Status of Disabled when form changes
+    useEffect(() => {
+      formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+    },[formValues])
   
   return (
     <div className='app-container'>
-      <header>
+      <div>
         <h1>User-OnBoarding</h1>
-      </header>
+        </div>
       <Form 
       values={formValues}
       change={inputChange}
       submit={formSubmit}
       disabled={disabled}
-      errors={InitialErrors}
+      errors={errors}
       />
       <Users users={user}/>
     </div>

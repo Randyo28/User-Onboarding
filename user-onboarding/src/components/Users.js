@@ -6,12 +6,12 @@ function Users(props) {
 
     return (
         <div>
-            {users.map((user, idx) => {
+            {users.map((user) => {
                 return (
-                <div>
-                    <h2>{user.name}</h2>
-                    <h2>{user.email}</h2>
-                    <h2>{user.id}</h2>
+                <div className="user" key={user.id}>
+                    <h2>Name: {user.first_name}</h2>
+                    <h2>Email: {user.email}</h2>
+                    <h2>Id: {user.id}</h2>
                 </div>
                 )
             })}
