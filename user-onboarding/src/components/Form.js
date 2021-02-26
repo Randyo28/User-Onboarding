@@ -22,10 +22,11 @@ const Form = (props) => {
 
     return (
         <form onSubmit={onSubmit}className='form-container'>
+            <h1>User-OnBoarding</h1>
             <div className='form-groups'>
                 <label> Name:
                     <input name='first_name' type='text' 
-                    value={values.name}
+                    value={values.first_name}
                     onChange={onChange}
                     placeholder='Type name here..'
                      />
@@ -55,10 +56,10 @@ const Form = (props) => {
                 <h2>Add a User</h2>
                 <button disabled={disabled}>submit</button>
                 <div className='errors'>
-                <div>{errors.name}</div>
-                <div>{errors.email}</div>
-                <div>{errors.password}</div>
-                {/* <div>{errors.terms}</div> */}
+                <div className="error">{errors.first_name}</div>
+                <div className="error">{errors.email}</div>
+                <div className="error">{errors.password}</div>
+                <div className="error">{errors.terms}</div>
                 </div>
             </div> 
         </form>

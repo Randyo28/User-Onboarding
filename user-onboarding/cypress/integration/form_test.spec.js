@@ -3,18 +3,10 @@ beforeEach(() => {
 })
 
 describe('My first test', function() {
-
-    // beforeEach(() => {
-    //     cy.visit('http://localhost:3000')
-    // })
     
     it('Does not do much', function() {
-        
-        // eslint-disable-next-line jest/valid-expect
         expect(true).to.equal(true);
     })
-
-    
 })
 
 
@@ -27,48 +19,77 @@ describe('Check for Header text', () => {
 })
 
 
-describe('Get the Inputs', () => {
+describe('Get the Inputs and submit Form', () => {
     
     const nameInput = () => cy.get('input[name=first_name]')
     const emailInput = () => cy.get('input[name=email]')
     const passwordInput = () => cy.get('input[name=password]')
     const termsInput = () => cy.get('input[name=terms]')
+    const submitButton = () => cy.get(':button')
 
-    it('Checks for name input', () => {
+    it('Types inputs and click on submit button', () => {
+        //* Name input with name typed
         nameInput()
         .should('exist')
+        .should('have.value', '')
         .type('Randy')
         .should('have.value', 'Randy')
-    })
 
-    it('checks for email input', () => {
+        //* Email input with email typed
         emailInput()
         .should('exist')
         .type('Randy@email.com')
-        .should('have.value', 'Randy@email.com')
-    })
 
-    it('checks for password input', () => {
+        //* Password input with password typed
         passwordInput()
         .should('exist')
         .type('Ortiz1995')
-        .should('have.value', 'Ortiz1995')
-    })
 
-    it('check if user can check on checkbox', () => {
+        //* Terms checkbox with a click
         termsInput()
         .should('exist')
         .click()
-    })
-})
 
-describe('User can submit form', () => {
-   
-    const submitButton = () +
-    
-    it('Be able to press submit', () => {
+        //* Submit button should submit on click
+        submitButton()
         .should('exist')
         .click()
     })
+
+
+describe('Check for form validation when form field is incorrect', () => {
     
+    const nameError = () => cy.get('.errors > :nth-child(1)')
+    const emailError = () => cy.get('.errors > :nth-child(2)')
+    const passwordError = () => cy.get('.errors > :nth-child(3)')
+
+    it('should look for nameInput validation error', () => {
+        
+        nameInput()
+        .should('exist')
+        .type('hi')
+
+        nameError()
+        .should('exist')
+    })
+    
+    it('should look for email validation error', () => {
+        emailInput()
+        .should('exist')
+        .type('hello')
+
+        emailError()
+        .should('exist')
+    })
+    
+    it('should look for  password validation error', () => {
+        passwordInput()
+        .should('exist')
+        .type('hello')
+
+        passwordError()
+        .should('exist')
+    })
+    
+    })
 })

@@ -9,7 +9,7 @@ import formSchema from './validation/formSchema';
 
 function App() {
 
-  //* Forms start Empty
+  //* Forms starts Empty
   const InitialFormValues = {
     first_name: '',
     email: '',
@@ -17,7 +17,7 @@ function App() {
     terms: false
   }
 
-//* Errors start Empty
+//* Errors starts Empty
   const InitialErrors = {
     first_name: '',
     email: '',
@@ -107,11 +107,8 @@ function App() {
     },[formValues])
   
   return (
-    <div className='app-container'>
-      <div>
-        <h1>User-OnBoarding</h1>
-        </div>
-      <Form 
+    <div className="app-container">
+        <Form 
       values={formValues}
       change={inputChange}
       submit={formSubmit}

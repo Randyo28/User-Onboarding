@@ -5,7 +5,7 @@ function Users(props) {
     const {users} = props
 
     return (
-        <div>
+        <div className="user-container">
             {users.map((user) => {
                 return (
                 <div className="user" key={user.id}>
